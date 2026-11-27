@@ -70,7 +70,7 @@ export function reverseGeocode(lat, lng){
             cache.set(key, result);
             return result;
         }catch (error){
-            console.error("API error: ",error.message);
+            console.log("[ERRO] geocoder (Nominatim):", error.message, error.cause?.code ?? "");
             return {address: null, city: null};
         };
     }

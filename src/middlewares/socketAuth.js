@@ -7,6 +7,7 @@ export async function socketAuth(socket, next) {
     const origin = socket.handshake.headers.origin;
 
     if (origin && origin !== process.env.CLIENT_ORIGIN) {
+      console.log("[ERRO] socketAuth: origem não permitida:", origin);
       return next(new Error("Origem não permitida."));
     }
 
@@ -26,6 +27,10 @@ export async function socketAuth(socket, next) {
     socket.data.user = user;
     next();
   } catch (error) {
+    if (error.name !== "JsonWebTokenError" && error.name !== "TokenExpiredError") {
+      console.log("[ERRO] socketAuth:", error);
+    }
+
     next(new Error("Não autenticado."));
   }
 }

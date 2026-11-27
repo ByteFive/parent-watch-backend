@@ -37,7 +37,7 @@ export function registerLocationSocket(io){
             io.to(`watch:${userId}`).emit("location:changed", { userId, ...position });
 
             saveIfNeeded(userId, position).catch((error) => {
-                console.error("Erro ao salvar localização: ", error.message);
+                console.log("[ERRO] location:update (salvar localização):", error);
             });
         });
 
@@ -65,6 +65,7 @@ export function registerLocationSocket(io){
                     position: getCurrentPosition(id)
                 });
             }catch(error){
+                console.log("[ERRO] location:watch:", error);
                 socket.emit("location:error", { message: "Erro ao acompanhar a localização." });
             }
         });
@@ -73,6 +74,10 @@ export function registerLocationSocket(io){
             if(typeof targetUserId === "string"){
                 socket.leave(`watch:${targetUserId}`);
             }
+        });
+
+        socket.on("error", (error) => {
+            console.log("[ERRO] socket:", error);
         });
 
         socket.on("location:stop", stopSharing);

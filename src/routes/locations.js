@@ -38,7 +38,7 @@ router.get("/:userId", async (req, res) => {
             lastLocations
         });
     }catch(error){
-        console.error(error);
+        console.log("[ERRO] GET /locations/:userId:", error);
         res.status(500).json({ message: "Erro ao buscar localizações." });
     }
 

@@ -23,7 +23,7 @@ export async function requireAuth(req, res, next) {
       return res.status(401).json({ message: "Sessão inválida ou expirada." });
     }
 
-    console.error(error);
+    console.log("[ERRO] requireAuth:", error);
 
     return res.status(500).json({ message: "Erro interno do servidor." });
   }

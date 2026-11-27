@@ -35,7 +35,7 @@ router.post("/children", async (req, res) => {
       },
     });
   } catch (error) {
-    console.error(error);
+    console.log("[ERRO] POST /family/children:", error);
 
     return res.status(500).json({ message: "Erro interno do servidor." });
   }
@@ -55,7 +55,7 @@ router.get("/children", async (req, res) => {
       })),
     });
   } catch (error) {
-    console.error(error);
+    console.log("[ERRO] GET /family/children:", error);
 
     return res.status(500).json({ message: "Erro interno do servidor." });
   }
